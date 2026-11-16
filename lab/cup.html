@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>蓝色茶杯 - 商品详情</title>
+</head>
+<body>
+  <h1>蓝色茶杯</h1>
+  <p>价格：¥39</p>
+  <p id="stock" role="status">库存：加载中…</p>
+  <script>
+    setTimeout(() => {
+      document.querySelector('#stock').textContent = '库存：有货';
+    }, 1200);
+  </script>
+</body>
+</html>

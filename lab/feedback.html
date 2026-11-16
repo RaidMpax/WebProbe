@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>WebProbe 反馈表单</title>
+</head>
+<body>
+  <h1>提交反馈</h1>
+  <p><a href="search.html">返回商品搜索</a></p>
+  <form id="feedback-form" data-form-state="idle" data-submission-count="0">
+    <label for="name">姓名（必填）</label>
+    <input id="name" name="name" type="text" required>
+    <label for="message">反馈内容（必填）</label>
+    <textarea id="message" name="message" required></textarea>
+    <button type="submit">提交反馈</button>
+  </form>
+  <p id="status" role="status">尚未提交</p>
+  <script>
+    const form = document.querySelector('#feedback-form');
+    const status = document.querySelector('#status');
+    // 评测器在页面脚本运行前配置故障；测试 URL 本身不包含答案标签。
+    if (window.__WEBPROBE_REQUIRED_BYPASS__ === true) {
+      form.noValidate = true;
+    }
+    // 正常的页面文案变化：只换按钮文字，提交规格保持不变。
+    if (window.__WEBPROBE_RENAME_SUBMIT__ === true) {
+      form.querySelector('button[type="submit"]').textContent = '发送反馈';
+    }
+
+    // 浏览器发现空必填项时，submit 事件不会触发；invalid 事件负责显示反馈。
+    form.addEventListener('invalid', () => {
+      form.dataset.formState = 'invalid';
+      status.textContent = '请填写所有必填项';
+    }, true);
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      form.dataset.submissionCount = String(Number(form.dataset.submissionCount) + 1);
+      form.dataset.formState = 'submitted';
+      status.textContent = '提交成功';
+    });
+  </script>
+</body>
+</html>

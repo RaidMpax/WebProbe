@@ -1,0 +1,404 @@
+{
+  "recorded_date": "2026-11-07",
+  "experiment": "feedback_rule_baseline_vs_recheck",
+  "dataset": "feedback_v3.jsonl",
+  "dataset_sha256": "e0bca215b39a8c3be9e81637d931aa8f20f4b4cc2ed46dd3b6497dc099bfde06",
+  "policy_source_sha256": "735e8c45dda9bed9f1d0e89e62e8662733be23c3eae1a0f96b6bc58735b688db",
+  "run_order": [
+    "baseline",
+    "current"
+  ],
+  "runs": {
+    "baseline": {
+      "artifact_directory": "artifacts/form_evals/20261107T045828Z_06da45c6",
+      "summary": {
+        "policy": "form_rule_baseline_no_recheck",
+        "model": null,
+        "dataset": "feedback_v3.jsonl",
+        "classification_unit": "one_case",
+        "case_count": 9,
+        "task_success_count": 6,
+        "task_success_rate": 0.6666666666666666,
+        "agent_execution_failure_count": 0,
+        "model_failure_count": 0,
+        "unclassified_case_count": 3,
+        "confusion": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 6
+        },
+        "bug_precision": null,
+        "bug_recall": null,
+        "bug_f1": null,
+        "in_session_bug_reproduction_rate": null,
+        "average_steps": 3.111111111111111,
+        "average_latency_seconds": 0.2798888888888889,
+        "token_usage": null,
+        "token_usage_covered_cases": 0,
+        "api_cost": null,
+        "metrics_note": "本地表单固定集；未形成结论不计入混淆矩阵。疑似 Bug 须有两次提交证据。Token 用量仅在每题完整时汇总；费用未计算。",
+        "evaluation_scope": "full_suite",
+        "selected_case_ids": [
+          "feedback_valid_001",
+          "feedback_empty_001",
+          "feedback_required_bypass_001",
+          "feedback_valid_002",
+          "feedback_missing_name_001",
+          "feedback_missing_message_001",
+          "feedback_bypass_missing_name_001",
+          "feedback_bypass_missing_message_001",
+          "feedback_renamed_submit_001"
+        ],
+        "bad_case_count": 3,
+        "dataset_sha256": "e0bca215b39a8c3be9e81637d931aa8f20f4b4cc2ed46dd3b6497dc099bfde06",
+        "policy_source_sha256": "735e8c45dda9bed9f1d0e89e62e8662733be23c3eae1a0f96b6bc58735b688db"
+      },
+      "case_results": [
+        {
+          "case_id": "feedback_valid_001",
+          "ground_truth": {
+            "has_bug": false,
+            "bug_type": null
+          },
+          "run_status": "completed",
+          "agent_conclusion": "no_bug",
+          "form_assertion": true,
+          "task_success": true,
+          "steps": 4,
+          "elapsed_seconds": 0.355,
+          "reproduced_in_session": false
+        },
+        {
+          "case_id": "feedback_empty_001",
+          "ground_truth": {
+            "has_bug": false,
+            "bug_type": null
+          },
+          "run_status": "completed",
+          "agent_conclusion": "no_bug",
+          "form_assertion": true,
+          "task_success": true,
+          "steps": 2,
+          "elapsed_seconds": 0.228,
+          "reproduced_in_session": false
+        },
+        {
+          "case_id": "feedback_required_bypass_001",
+          "ground_truth": {
+            "has_bug": true,
+            "bug_type": "required_field_bypass"
+          },
+          "run_status": "needs_review",
+          "agent_conclusion": null,
+          "form_assertion": false,
+          "task_success": false,
+          "steps": 2,
+          "elapsed_seconds": 0.225,
+          "reproduced_in_session": false
+        },
+        {
+          "case_id": "feedback_valid_002",
+          "ground_truth": {
+            "has_bug": false,
+            "bug_type": null
+          },
+          "run_status": "completed",
+          "agent_conclusion": "no_bug",
+          "form_assertion": true,
+          "task_success": true,
+          "steps": 4,
+          "elapsed_seconds": 0.308,
+          "reproduced_in_session": false
+        },
+        {
+          "case_id": "feedback_missing_name_001",
+          "ground_truth": {
+            "has_bug": false,
+            "bug_type": null
+          },
+          "run_status": "completed",
+          "agent_conclusion": "no_bug",
+          "form_assertion": true,
+          "task_success": true,
+          "steps": 3,
+          "elapsed_seconds": 0.268,
+          "reproduced_in_session": false
+        },
+        {
+          "case_id": "feedback_missing_message_001",
+          "ground_truth": {
+            "has_bug": false,
+            "bug_type": null
+          },
+          "run_status": "completed",
+          "agent_conclusion": "no_bug",
+          "form_assertion": true,
+          "task_success": true,
+          "steps": 3,
+          "elapsed_seconds": 0.264,
+          "reproduced_in_session": false
+        },
+        {
+          "case_id": "feedback_bypass_missing_name_001",
+          "ground_truth": {
+            "has_bug": true,
+            "bug_type": "required_field_bypass"
+          },
+          "run_status": "needs_review",
+          "agent_conclusion": null,
+          "form_assertion": false,
+          "task_success": false,
+          "steps": 3,
+          "elapsed_seconds": 0.27,
+          "reproduced_in_session": false
+        },
+        {
+          "case_id": "feedback_bypass_missing_message_001",
+          "ground_truth": {
+            "has_bug": true,
+            "bug_type": "required_field_bypass"
+          },
+          "run_status": "needs_review",
+          "agent_conclusion": null,
+          "form_assertion": false,
+          "task_success": false,
+          "steps": 3,
+          "elapsed_seconds": 0.272,
+          "reproduced_in_session": false
+        },
+        {
+          "case_id": "feedback_renamed_submit_001",
+          "ground_truth": {
+            "has_bug": false,
+            "bug_type": null
+          },
+          "run_status": "completed",
+          "agent_conclusion": "no_bug",
+          "form_assertion": true,
+          "task_success": true,
+          "steps": 4,
+          "elapsed_seconds": 0.329,
+          "reproduced_in_session": false
+        }
+      ]
+    },
+    "current": {
+      "artifact_directory": "artifacts/form_evals/20261107T045834Z_1b1c4f20",
+      "summary": {
+        "policy": "form_rule_v1",
+        "model": null,
+        "dataset": "feedback_v3.jsonl",
+        "classification_unit": "one_case",
+        "case_count": 9,
+        "task_success_count": 9,
+        "task_success_rate": 1.0,
+        "agent_execution_failure_count": 0,
+        "model_failure_count": 0,
+        "unclassified_case_count": 0,
+        "confusion": {
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "tn": 6
+        },
+        "bug_precision": 1.0,
+        "bug_recall": 1.0,
+        "bug_f1": 1.0,
+        "in_session_bug_reproduction_rate": 1.0,
+        "average_steps": 3.4444444444444446,
+        "average_latency_seconds": 0.3165555555555556,
+        "token_usage": null,
+        "token_usage_covered_cases": 0,
+        "api_cost": null,
+        "metrics_note": "本地表单固定集；未形成结论不计入混淆矩阵。疑似 Bug 须有两次提交证据。Token 用量仅在每题完整时汇总；费用未计算。",
+        "evaluation_scope": "full_suite",
+        "selected_case_ids": [
+          "feedback_valid_001",
+          "feedback_empty_001",
+          "feedback_required_bypass_001",
+          "feedback_valid_002",
+          "feedback_missing_name_001",
+          "feedback_missing_message_001",
+          "feedback_bypass_missing_name_001",
+          "feedback_bypass_missing_message_001",
+          "feedback_renamed_submit_001"
+        ],
+        "bad_case_count": 0,
+        "dataset_sha256": "e0bca215b39a8c3be9e81637d931aa8f20f4b4cc2ed46dd3b6497dc099bfde06",
+        "policy_source_sha256": "735e8c45dda9bed9f1d0e89e62e8662733be23c3eae1a0f96b6bc58735b688db"
+      },
+      "case_results": [
+        {
+          "case_id": "feedback_valid_001",
+          "ground_truth": {
+            "has_bug": false,
+            "bug_type": null
+          },
+          "run_status": "completed",
+          "agent_conclusion": "no_bug",
+          "form_assertion": true,
+          "task_success": true,
+          "steps": 4,
+          "elapsed_seconds": 0.359,
+          "reproduced_in_session": false
+        },
+        {
+          "case_id": "feedback_empty_001",
+          "ground_truth": {
+            "has_bug": false,
+            "bug_type": null
+          },
+          "run_status": "completed",
+          "agent_conclusion": "no_bug",
+          "form_assertion": true,
+          "task_success": true,
+          "steps": 2,
+          "elapsed_seconds": 0.221,
+          "reproduced_in_session": false
+        },
+        {
+          "case_id": "feedback_required_bypass_001",
+          "ground_truth": {
+            "has_bug": true,
+            "bug_type": "required_field_bypass"
+          },
+          "run_status": "suspected_bug",
+          "agent_conclusion": "bug",
+          "form_assertion": false,
+          "task_success": true,
+          "steps": 3,
+          "elapsed_seconds": 0.341,
+          "reproduced_in_session": true
+        },
+        {
+          "case_id": "feedback_valid_002",
+          "ground_truth": {
+            "has_bug": false,
+            "bug_type": null
+          },
+          "run_status": "completed",
+          "agent_conclusion": "no_bug",
+          "form_assertion": true,
+          "task_success": true,
+          "steps": 4,
+          "elapsed_seconds": 0.367,
+          "reproduced_in_session": false
+        },
+        {
+          "case_id": "feedback_missing_name_001",
+          "ground_truth": {
+            "has_bug": false,
+            "bug_type": null
+          },
+          "run_status": "completed",
+          "agent_conclusion": "no_bug",
+          "form_assertion": true,
+          "task_success": true,
+          "steps": 3,
+          "elapsed_seconds": 0.328,
+          "reproduced_in_session": false
+        },
+        {
+          "case_id": "feedback_missing_message_001",
+          "ground_truth": {
+            "has_bug": false,
+            "bug_type": null
+          },
+          "run_status": "completed",
+          "agent_conclusion": "no_bug",
+          "form_assertion": true,
+          "task_success": true,
+          "steps": 3,
+          "elapsed_seconds": 0.267,
+          "reproduced_in_session": false
+        },
+        {
+          "case_id": "feedback_bypass_missing_name_001",
+          "ground_truth": {
+            "has_bug": true,
+            "bug_type": "required_field_bypass"
+          },
+          "run_status": "suspected_bug",
+          "agent_conclusion": "bug",
+          "form_assertion": false,
+          "task_success": true,
+          "steps": 4,
+          "elapsed_seconds": 0.355,
+          "reproduced_in_session": true
+        },
+        {
+          "case_id": "feedback_bypass_missing_message_001",
+          "ground_truth": {
+            "has_bug": true,
+            "bug_type": "required_field_bypass"
+          },
+          "run_status": "suspected_bug",
+          "agent_conclusion": "bug",
+          "form_assertion": false,
+          "task_success": true,
+          "steps": 4,
+          "elapsed_seconds": 0.326,
+          "reproduced_in_session": true
+        },
+        {
+          "case_id": "feedback_renamed_submit_001",
+          "ground_truth": {
+            "has_bug": false,
+            "bug_type": null
+          },
+          "run_status": "completed",
+          "agent_conclusion": "no_bug",
+          "form_assertion": true,
+          "task_success": true,
+          "steps": 4,
+          "elapsed_seconds": 0.285,
+          "reproduced_in_session": false
+        }
+      ]
+    }
+  },
+  "comparison": {
+    "dataset": "feedback_v3.jsonl",
+    "dataset_sha256": "e0bca215b39a8c3be9e81637d931aa8f20f4b4cc2ed46dd3b6497dc099bfde06",
+    "policy_source_sha256": "735e8c45dda9bed9f1d0e89e62e8662733be23c3eae1a0f96b6bc58735b688db",
+    "baseline_policy": "form_rule_baseline_no_recheck",
+    "current_policy": "form_rule_v1",
+    "task_success_rate": {
+      "before": 0.6666666666666666,
+      "after": 1.0
+    },
+    "unclassified_case_count": {
+      "before": 3,
+      "after": 0
+    },
+    "confusion": {
+      "before": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 6
+      },
+      "after": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "tn": 6
+      }
+    },
+    "average_steps": {
+      "before": 3.111111111111111,
+      "after": 3.4444444444444446
+    },
+    "average_latency_seconds": {
+      "before": 0.2798888888888889,
+      "after": 0.3165555555555556
+    },
+    "note": "只比较同一版本的本地表单固定集；Baseline 的待审结果不是漏报分类。"
+  },
+  "limitations": [
+    "One run per policy; latency differences are descriptive and not a performance claim.",
+    "The nine cases cover one form specification and one required-field-bypass bug family.",
+    "This evaluates deterministic local rule policies, not an LLM."
+  ]
+}

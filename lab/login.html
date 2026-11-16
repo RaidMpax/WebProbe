@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>WebProbe 登录 TestLab</title>
+</head>
+<body>
+  <h1>测试账号登录</h1>
+  <p><a href="search.html">返回商品搜索</a></p>
+  <form id="login-form" data-login-state="idle" data-attempt-count="0">
+    <label for="username">账号</label>
+    <input id="username" name="username" autocomplete="username">
+    <label for="password">密码</label>
+    <input id="password" name="password" type="password" autocomplete="current-password">
+    <button type="submit">登录</button>
+  </form>
+  <p id="login-status" role="status">请输入测试账号</p>
+  <script>
+    const form = document.querySelector('#login-form');
+    const status = document.querySelector('#login-status');
+    const button = form.querySelector('button[type="submit"]');
+    // 文案变化是正常页面变化；登录规则不变。
+    if (window.__WEBPROBE_RENAME_LOGIN_BUTTON__ === true) {
+      button.textContent = '进入账户';
+    }
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const attempts = Number(form.dataset.attemptCount) + 1;
+      form.dataset.attemptCount = String(attempts);
+      const username = form.elements.username.value;
+      const password = form.elements.password.value;
+      const correctCredentials = username === 'qa_student' && password === 'qa_demo_123';
+      const injectedFailure = window.__WEBPROBE_VALID_LOGIN_REJECTED__ === true;
+      if (correctCredentials && !injectedFailure) {
+        form.dataset.loginState = 'authenticated';
+        status.textContent = '登录成功：欢迎 QA 测试用户';
+      } else {
+        form.dataset.loginState = 'rejected';
+        status.textContent = '账号或密码错误';
+      }
+    });
+  </script>
+</body>
+</html>

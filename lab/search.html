@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>WebProbe 搜索练习</title>
+</head>
+<body>
+  <h1>商品搜索</h1>
+  <p><a href="feedback.html">反馈表单</a></p>
+  <p><a href="cart.html">购物车</a></p>
+  <form id="search-form">
+    <label for="keyword">商品关键词</label>
+    <input id="keyword" type="search">
+    <button type="submit">搜索</button>
+  </form>
+  <p id="status" role="status">找到 2 件商品</p>
+  <ul id="results" data-search-state="idle">
+    <li data-name="蓝色茶杯"><a href="cup.html">蓝色茶杯</a></li>
+    <li data-name="帆布包">帆布包</li>
+  </ul>
+  <script>
+    const products = [...document.querySelectorAll('#results li')];
+    // 只有测试网址明确带上 ?bug=search_mismatch 时，才启用预设故障。
+    // 故障模拟“搜索服务错误地固定返回帆布包”，正常网址不受影响。
+    const params = new URLSearchParams(window.location.search);
+    const bug = params.get('bug');
+    // delay_ms 只模拟正常的异步响应，不改变搜索结果的产品规格。
+    const delayMs = Math.min(Math.max(Number(params.get('delay_ms')) || 0, 0), 3000);
+    let pendingSearch;
+    document.querySelector('#search-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const keyword = document.querySelector('#keyword').value.trim();
+      // 这是故意写错的测试分支：用固定词过滤，模拟搜索结果与输入不匹配。
+      const effectiveKeyword = bug === 'search_mismatch' ? '帆布包' : keyword;
+      clearTimeout(pendingSearch);
+      const showResults = () => {
+        let count = 0;
+        for (const product of products) {
+          product.hidden = !product.dataset.name.includes(effectiveKeyword);
+          if (!product.hidden) count += 1;
+        }
+        document.querySelector('#status').textContent = `找到 ${count} 件商品`;
+        document.querySelector('#results').dataset.searchState = 'ready';
+      };
+      if (delayMs > 0) {
+        document.querySelector('#status').textContent = '搜索中…';
+        document.querySelector('#results').dataset.searchState = 'loading';
+        for (const product of products) product.hidden = true;
+        pendingSearch = setTimeout(showResults, delayMs);
+      } else {
+        showResults();
+      }
+    });
+  </script>
+</body>
+</html>

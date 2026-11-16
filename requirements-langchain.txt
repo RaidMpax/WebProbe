@@ -1,0 +1,4 @@
+# 仅用于独立的 LangChain 学习练习；WebProbe 主流程仍只需 requirements.txt。
+-r requirements.txt
+langchain==1.4.6
+langgraph==1.2.16

@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "experiment_date": "2026-11-16",
+  "experiment_type": "local_rule_baseline_vs_recheck",
+  "classification_unit": "one_case",
+  "comparison_controls": {
+    "same_dataset_per_suite": true,
+    "same_dataset_hash_per_suite": true,
+    "same_policy_source_hash_per_suite": true,
+    "model_used": false,
+    "baseline_description": "Deterministic rule policy without suspected-bug recheck.",
+    "current_description": "Deterministic rule policy with bounded recheck before reporting a suspected bug."
+  },
+  "suites": [
+    {
+      "dataset": "search_v3.jsonl",
+      "case_count": 4,
+      "dataset_sha256": "22a1fe32af6bf07fd5d6386bf8513408f5b9d2589991abee761ac213d06449b7",
+      "baseline_run_id": "20261116T022031Z_446ecf7d",
+      "current_run_id": "20261116T022050Z_9292f7b9",
+      "baseline": {
+        "policy": "rule_demo_baseline_v4_wait_2500_time_budget",
+        "task_success_count": 3,
+        "task_success_rate": 0.75,
+        "unclassified_case_count": 1,
+        "confusion": {"tp": 1, "fp": 0, "fn": 0, "tn": 2},
+        "average_steps": 4.75,
+        "average_latency_seconds": 3.27075,
+        "policy_source_sha256": "53ab7bb2afdc0d0f176306d29f4491e026abfa4a2b1a4e246cf55a5e6437563c"
+      },
+      "current": {
+        "policy": "rule_demo_v5_wait_3500_time_budget",
+        "task_success_count": 4,
+        "task_success_rate": 1.0,
+        "unclassified_case_count": 0,
+        "confusion": {"tp": 1, "fp": 0, "fn": 0, "tn": 3},
+        "average_steps": 5.25,
+        "average_latency_seconds": 2.89825,
+        "policy_source_sha256": "53ab7bb2afdc0d0f176306d29f4491e026abfa4a2b1a4e246cf55a5e6437563c"
+      },
+      "change_note": "The current policy used a 3500 ms search wait budget versus 2500 ms in baseline; the 3-second normal-loading case completed. This is one small local run, not evidence of general performance improvement."
+    },
+    {
+      "dataset": "feedback_v3.jsonl",
+      "case_count": 13,
+      "dataset_sha256": "ff73ed2947829b93a837e09503196615ea8c13ebfdc70e5bfc7bb49a2f57f80f",
+      "baseline_run_id": "20261116T022106Z_e24a7812",
+      "current_run_id": "20261116T022129Z_d599798f",
+      "baseline": {
+        "policy": "form_rule_baseline_v2_time_budget",
+        "task_success_count": 9,
+        "task_success_rate": 0.6923076923,
+        "unclassified_case_count": 4,
+        "confusion": {"tp": 0, "fp": 0, "fn": 0, "tn": 9},
+        "average_steps": 3.1538461538,
+        "average_latency_seconds": 0.9760769231,
+        "policy_source_sha256": "fb6432338d637252fde0c6cb3249af74737b4e0bc48730a1755229896a7f7282"
+      },
+      "current": {
+        "policy": "form_rule_v2_time_budget",
+        "task_success_count": 13,
+        "task_success_rate": 1.0,
+        "unclassified_case_count": 0,
+        "confusion": {"tp": 4, "fp": 0, "fn": 0, "tn": 9},
+        "average_steps": 3.4615384615,
+        "average_latency_seconds": 0.8770769231,
+        "policy_source_sha256": "fb6432338d637252fde0c6cb3249af74737b4e0bc48730a1755229896a7f7282"
+      },
+      "change_note": "The current policy repeats an unexpectedly successful empty-form submission and confirms the fault using the submission counter. The four positive cases exercise the same required-field-bypass fault family."
+    },
+    {
+      "dataset": "cart_v1.jsonl",
+      "case_count": 7,
+      "dataset_sha256": "445d9e02c381d428832a48b874c8e2741d7876aaff9d1353408f6c43b19ea727",
+      "baseline_run_id": "20261116T022150Z_c0980d19",
+      "current_run_id": "20261116T022157Z_43ac3e4a",
+      "baseline": {
+        "policy": "cart_rule_baseline_no_recheck_v1",
+        "task_success_count": 5,
+        "task_success_rate": 0.7142857143,
+        "unclassified_case_count": 2,
+        "confusion": {"tp": 0, "fp": 0, "fn": 0, "tn": 5},
+        "average_steps": 3.0,
+        "average_latency_seconds": 0.4555714286,
+        "policy_source_sha256": "c4f2e0b988f7bc5523259a690fed87be31fe29a8cb7b2ad30dcec1553ce0af29"
+      },
+      "current": {
+        "policy": "cart_rule_recheck_v1",
+        "task_success_count": 7,
+        "task_success_rate": 1.0,
+        "unclassified_case_count": 0,
+        "confusion": {"tp": 2, "fp": 0, "fn": 0, "tn": 5},
+        "average_steps": 3.8571428571,
+        "average_latency_seconds": 0.4872857143,
+        "policy_source_sha256": "c4f2e0b988f7bc5523259a690fed87be31fe29a8cb7b2ad30dcec1553ce0af29"
+      },
+      "change_note": "Both positive cases test the same wrong-cart-total fault family; the current rule policy replayed both successfully."
+    },
+    {
+      "dataset": "login_v1.jsonl",
+      "case_count": 6,
+      "dataset_sha256": "ade9f9597333fe9ccfd6c4efab99ab679843c22609462d81b061e3a147ba419d",
+      "baseline_run_id": "20261116T022205Z_3155c6e4",
+      "current_run_id": "20261116T022211Z_fee12f9b",
+      "baseline": {
+        "policy": "login_rule_baseline_no_recheck_v1",
+        "task_success_count": 4,
+        "task_success_rate": 0.6666666667,
+        "unclassified_case_count": 2,
+        "confusion": {"tp": 0, "fp": 0, "fn": 0, "tn": 4},
+        "average_steps": 4.0,
+        "average_latency_seconds": 0.4898333333,
+        "policy_source_sha256": "ff25623fd577354f54be6d7a95195b049113193aa9ec80f3e1524b7bc1f8cfd4"
+      },
+      "current": {
+        "policy": "login_rule_recheck_v1",
+        "task_success_count": 6,
+        "task_success_rate": 1.0,
+        "unclassified_case_count": 0,
+        "confusion": {"tp": 2, "fp": 0, "fn": 0, "tn": 4},
+        "average_steps": 5.3333333333,
+        "average_latency_seconds": 0.6675,
+        "policy_source_sha256": "ff25623fd577354f54be6d7a95195b049113193aa9ec80f3e1524b7bc1f8cfd4"
+      },
+      "change_note": "Both positive cases test the same valid-login-rejected fault family; the current rule policy replayed both successfully."
+    }
+  ],
+  "limitations": [
+    "All four comparisons are deterministic local rule-policy evaluations, not LLM evaluations.",
+    "The baseline is a rule-policy ablation without recheck, not a basic LLM baseline.",
+    "The fixed datasets contain repeated cases from a small number of fault families and do not establish generalization to arbitrary websites.",
+    "Each comparison is a small local run; latency can vary with machine load and these results do not establish statistical significance.",
+    "Unclassified cases are excluded from TP, FP, FN, and TN; they are not treated as bug-free cases."
+  ]
+}

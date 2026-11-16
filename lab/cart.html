@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>WebProbe 购物车练习</title>
+</head>
+<body>
+  <h1>购物车</h1>
+  <p><a href="search.html">返回商品搜索</a></p>
+
+  <h2>商品</h2>
+  <ul id="products">
+    <li data-product="蓝色茶杯" data-price="39">
+      蓝色茶杯 · ¥39
+      <button type="button" aria-label="加入购物车：蓝色茶杯">加入购物车</button>
+    </li>
+    <li data-product="帆布包" data-price="59">
+      帆布包 · ¥59
+      <button type="button" aria-label="加入购物车：帆布包">加入购物车</button>
+    </li>
+  </ul>
+
+  <h2>购物车内容</h2>
+  <p id="cart-status" role="status">购物车为空</p>
+  <ul id="cart-items" aria-label="购物车商品"></ul>
+  <p>商品件数：<span id="cart-count">0</span></p>
+  <p>合计：¥<span id="cart-total">0</span></p>
+
+  <script>
+    const cart = new Map();
+    const products = [...document.querySelectorAll('#products li')].map((row) => ({
+      name: row.dataset.product,
+      price: Number(row.dataset.price),
+    }));
+    // 评测通过独立浏览器上下文注入故障；页面 URL 不暴露 Case 的 Ground Truth。
+    const wrongTotal = window.__WEBPROBE_CART_TOTAL_BUG__ === true;
+
+    function renderCart() {
+      const itemCount = [...cart.values()].reduce((sum, quantity) => sum + quantity, 0);
+      const correctTotal = [...cart.entries()].reduce((sum, [name, quantity]) => {
+        const product = products.find((item) => item.name === name);
+        return sum + (product ? product.price * quantity : 0);
+      }, 0);
+      // 预设故障：总价把每件商品都按第一件商品的单价计算。
+      const displayedTotal = wrongTotal && itemCount > 0
+        ? itemCount * products[0].price
+        : correctTotal;
+
+      const list = document.querySelector('#cart-items');
+      list.replaceChildren();
+      for (const [name, quantity] of cart.entries()) {
+        const product = products.find((item) => item.name === name);
+        const row = document.createElement('li');
+        row.dataset.product = name;
+        row.dataset.quantity = String(quantity);
+        row.textContent = `${name} × ${quantity} · ¥${product.price * quantity}`;
+        list.append(row);
+      }
+      document.querySelector('#cart-count').textContent = String(itemCount);
+      document.querySelector('#cart-total').textContent = String(displayedTotal);
+      document.querySelector('#cart-status').textContent = itemCount === 0
+        ? '购物车为空'
+        : `购物车共 ${itemCount} 件商品`;
+    }
+
+    for (const row of document.querySelectorAll('#products li')) {
+      const name = row.dataset.product;
+      row.querySelector('button').addEventListener('click', () => {
+        cart.set(name, (cart.get(name) || 0) + 1);
+        renderCart();
+      });
+    }
+  </script>
+</body>
+</html>

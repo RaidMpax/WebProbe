@@ -1,0 +1,7 @@
+.venv/
+.browsers/
+.tmp/
+__pycache__/
+.pytest_cache/
+artifacts/
+.env
